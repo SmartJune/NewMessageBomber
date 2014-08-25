@@ -4,7 +4,7 @@ import java.net.*;
 public class Server {
 	public Server() {
 		Data data = new Data();
-		DataObject obj = new DataObject();
+		DataObject dao = new DataObject();
 	    ServerSocket serverSocket = null;  
 	    try {    
 	        serverSocket = new ServerSocket(9999);
@@ -14,10 +14,10 @@ public class Server {
 	        	System.out.println("连接客户端");  
 	        	ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 	        	for(int i=0;i<data.js.length;i++){
-	        		obj.setUrl(data.url[i]);
-	        		obj.setJs(data.js[i]);
-	        		oos.writeObject(obj);
-	        		System.out.println("发送了"+data.url[i]+"网站的信息");
+	        		dao.setUrl(data.url[i]);
+	        		dao.setJs(data.js[i]);
+	        		oos.writeObject(dao);
+	        		System.out.println("发送了"+dao.getUrl()+"网站的信息");
 	        	}
 	        }
 	    } catch (IOException e) {  

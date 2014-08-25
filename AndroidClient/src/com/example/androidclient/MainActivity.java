@@ -1,10 +1,10 @@
 package com.example.androidclient;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 import android.support.v7.app.ActionBarActivity;
 import android.os.*;
-
+import com.example.androidclient.*;
 import com.example.androidclient.DataObject;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +15,8 @@ public class MainActivity extends ActionBarActivity{
 	String string = null;
 	boolean flag = false;
 	ObjectInputStream ois = null;
+	Socket s;
+	DataObject dao;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +26,17 @@ public class MainActivity extends ActionBarActivity{
 		new Thread(){
 			public void run(){
 				try{
-				Socket s = new Socket("192.168.1.112",9999);
-				ois = new ObjectInputStream(s.getInputStream());
+				s = new Socket("192.168.1.112",9999);
+				
 				}catch(Exception e){
 					e.printStackTrace();
 				}
-				DataObject obj = new DataObject();
+				
 				while(true){
 			        	try {
-							obj = (DataObject) ois.readObject();
+			        		ois = new ObjectInputStream(s.getInputStream());
+			        		dao = new DataObject();
+							dao = (DataObject) ois.readObject();
 						} catch (OptionalDataException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -43,7 +47,7 @@ public class MainActivity extends ActionBarActivity{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						System.out.println(obj.getUrl()+"我在这里");   
+			        	System.out.println(dao.getUrl());
 				}
 			}
 		}.start();
@@ -72,16 +76,4 @@ public class MainActivity extends ActionBarActivity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public static String InputStreamTOString(InputStream in) throws Exception{  
-        
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();  
-        byte[] data = new byte[1024];  
-        int count = -1;  
-        while((count = in.read(data,0,1024)) != -1)  
-            outStream.write(data, 0, count);  
-          
-        data = null;  
-        return new String(outStream.toByteArray(),"ISO-8859-1");  
-    }  
 }
