@@ -1,6 +1,11 @@
 package com.example.service;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import org.json.JSONArray;
 
@@ -36,6 +41,22 @@ public class Bomber extends Thread{
 
 	public void run(){
 		for(int j = 0;j<data.js.length;j++){
+			Socket socket = null;
+			try {
+				socket = new Socket("192.168.1.102",9999);
+				ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+				data.url[i] = ((DataObject)ois.readObject()).getUrl();
+				data.js[i] =  ((DataObject)ois.readObject()).getJs();
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			data.url[j] = replaceString(data.url[j], "13538805451", phoneNumber);
 			data.js[j] = replaceString(data.js[j], "13538805451", phoneNumber);
 			System.out.println(data.url[j]);

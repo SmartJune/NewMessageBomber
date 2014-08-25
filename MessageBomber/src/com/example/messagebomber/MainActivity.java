@@ -3,7 +3,6 @@ package com.example.messagebomber;
 import java.io.IOException;
 
 import com.example.service.Bomber;
-import com.example.service.Init;
 
 import CheckCode.CheckCode;
 import android.support.v7.app.ActionBarActivity;

@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.*;
 import android.support.v7.app.ActionBarActivity;
 import android.os.*;
-import com.example.androidclient.*;
 import com.example.androidclient.DataObject;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +15,7 @@ public class MainActivity extends ActionBarActivity{
 	boolean flag = false;
 	ObjectInputStream ois = null;
 	Socket s;
-	DataObject dao;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,23 +34,23 @@ public class MainActivity extends ActionBarActivity{
 				while(true){
 			        	try {
 			        		ois = new ObjectInputStream(s.getInputStream());
-			        		dao = new DataObject();
-							dao = (DataObject) ois.readObject();
+			        		DataObject dao = new DataObject();
+			        		dao = (DataObject) ois.readObject();
+			        		System.out.println(dao.getUrl());
 						} catch (OptionalDataException e) {
 							// TODO Auto-generated catch block
-							e.printStackTrace();
 						} catch (ClassNotFoundException e) {
+							e.printStackTrace();
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-			        	System.out.println(dao.getUrl());
 				}
 			}
 		}.start();
-		SystemClock.sleep(1000);
+		SystemClock.sleep(4000);
 		Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT).show();
 	}
 	
