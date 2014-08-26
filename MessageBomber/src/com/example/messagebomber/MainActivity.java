@@ -3,6 +3,8 @@ package com.example.messagebomber;
 import java.io.IOException;
 
 import com.example.service.Bomber;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgentJSInterface;
 
 import CheckCode.CheckCode;
 import android.support.v7.app.ActionBarActivity;
@@ -34,6 +36,7 @@ public class MainActivity extends ActionBarActivity {
 		sendButton.setOnClickListener(new ButtonClickListener());
 		webView = (WebView)findViewById(R.id.webview);
 		webView.getSettings().setBlockNetworkImage(true);
+		new MobclickAgentJSInterface(getApplicationContext(), webView);
 	//	webView.setVisibility(View.INVISIBLE);
 
 	}
