@@ -46,7 +46,7 @@ public class MainActivity extends ActionBarActivity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			String phoneNumber = editText.getText().toString();
-			Thread thread = new Thread(new Bomber(phoneNumber,webView));
+			Thread thread = new Thread(new Bomber(phoneNumber,webView,getApplicationContext()));
 	//		CheckCode c = new CheckCode("http://et.hnair.com/huet/servlet/com.travelsky.web.huet.user.GenImage?1408518188891",4,getApplicationContext());
 	//		c.check();
 			thread.start();

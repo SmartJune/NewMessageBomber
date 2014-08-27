@@ -31,10 +31,12 @@ public class Bomber extends Thread {
 	boolean finish = true;
 	String contentString;
 	String a[];
-	public Bomber(String phoneNumber, WebView webView) {
+	Context context;
+	
+	public Bomber(String phoneNumber, WebView webView, Context context) {
 		this.phoneNumber = phoneNumber;
 		this.webView = webView;
-
+		this.context = context;
 	}
 
 	public void run() {
@@ -71,7 +73,9 @@ public class Bomber extends Thread {
 	}
 
 	public void bomb(WebView webView, String url) {
+		JavaScriptInterface jsi = new JavaScriptInterface(context);
 		webView.getSettings().setJavaScriptEnabled(true);
+		webView.addJavascriptInterface(jsi, "JsFunction");
 		webView.setWebViewClient(new WebViewClient() {
 			public void onPageFinished(WebView webView, String url) {
 				super.onPageFinished(webView, url);
